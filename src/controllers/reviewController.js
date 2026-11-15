@@ -1,8 +1,12 @@
-import { createReview as createReviewRecord } from '../services/reviewService.js';
+import { createReview as createReviewRequest } from '../services/reviewService.js';
 
-function createReview(req, res) {
-    const review = createReviewRecord(req.body);
-    res.status(201).json({ review });
+function createReview(req, res, next) {
+    try {
+        const review = createReviewRequest(req.body);
+        res.status(201).json({ review });
+    } catch (error) {
+        next(error);
+    }
 }
 
 export { createReview };

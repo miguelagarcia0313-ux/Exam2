@@ -1,8 +1,12 @@
-import { createBooking as createBookingRecord } from '../services/bookingService.js';
+import { createBooking as createBookingRequest } from '../services/bookingService.js';
 
-function createBooking(req, res) {
-    const booking = createBookingRecord(req.body);
-    res.status(201).json({ booking });
+function createBooking(req, res, next) {
+    try {
+        const booking = createBookingRequest(req.body);
+        res.status(201).json({ booking });
+    } catch (error) {
+        next(error);
+    }
 }
 
 export { createBooking };

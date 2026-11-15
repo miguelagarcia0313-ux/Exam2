@@ -1,53 +1,53 @@
 import { randomUUID } from 'node:crypto';
-import { findBookingById } from './bookingService.js';
+import stylists from '../data/stylists.js';
+import { findBooking } from './bookingService.js';
 
 const reviews = [];
 
-function fail(status, message) {
-    const error = new Error(message);
-    error.status = status;
-    throw error;
-}
-
-export function listReviews(stylistId) {
-    return reviews
-        .filter((review) => review.stylistId === stylistId)
-        .map((review) => ({ ...review }));
-}
-
-export function createReview(input) {
+function createReview(input) {
     if (!input || typeof input !== 'object' || Array.isArray(input)) {
-        fail(400, 'A review request is required.');
+        throw Object.assign(new Error('Add the required review details.'), { status: 400 });
     }
-
     const { bookingId, rating, comment } = input;
-    if (typeof bookingId !== 'string' || !bookingId) fail(400, 'A booking is required to leave a review.');
-    if (!Number.isInteger(Number(rating)) || Number(rating) < 1 || Number(rating) > 5) {
-        fail(400, 'Choose a rating from 1 to 5.');
+    const booking = findBooking(bookingId);
+    if (!booking) {
+        throw Object.assign(new Error('A confirmed booking is required to leave a review.'), { status: 404 });
     }
-    if (typeof comment !== 'string' || comment.trim().length < 5 || comment.trim().length > 1000) {
-        fail(400, 'Enter a review between 5 and 1,000 characters.');
+    const appointmentTime = new Date(`${booking.date}T${booking.time}`);
+    if (appointmentTime > new Date()) {
+        throw Object.assign(new Error('You can leave a review after your appointment.'), { status: 409 });
     }
-
-    const booking = findBookingById(bookingId);
-    if (!booking) fail(404, 'Booking not found.');
-
-    const appointmentDate = new Date(`${booking.date}T${booking.time}:00`);
-    if (appointmentDate >= new Date()) fail(409, 'You can review this booking after the appointment.');
-    if (reviews.some((review) => review.bookingId === booking.id)) {
-        fail(409, 'This booking already has a review.');
+    if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+        throw Object.assign(new Error('Choose a rating from 1 to 5.'), { status: 400 });
+    }
+    if (typeof comment !== 'string' || comment.trim().length < 5 || comment.length > 1000) {
+        throw Object.assign(new Error('Write a review between 5 and 1,000 characters.'), { status: 400 });
+    }
+    if (reviews.some((review) => review.bookingId === bookingId)) {
+        throw Object.assign(new Error('A review has already been submitted for this booking.'), { status: 409 });
     }
 
     const review = {
         id: randomUUID(),
-        bookingId: booking.id,
+        bookingId,
         stylistId: booking.stylistId,
-        reviewer: booking.clientName,
-        rating: Number(rating),
+        rating,
         comment: comment.trim(),
         createdAt: new Date().toISOString()
     };
-
     reviews.push(review);
-    return { ...review };
+
+    const stylist = stylists.find((item) => item.id === booking.stylistId);
+    const previousTotal = stylist.rating * stylist.reviews;
+    stylist.reviews += 1;
+    stylist.rating = Number(((previousTotal + rating) / stylist.reviews).toFixed(2));
+    return review;
 }
+
+function listReviews(stylistId) {
+    return reviews
+        .filter((review) => review.stylistId === stylistId)
+        .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+export { createReview, listReviews };
