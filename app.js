@@ -4,7 +4,7 @@ import express from 'express';
 import apiRoutes from './src/routes/api.js';
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
 
 app.disable('x-powered-by');
