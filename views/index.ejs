@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f7f4">
+    <meta name="description" content="Meet your next favorite stylist. Book personal style, hair, jewelry and watch experts on Dapper.">
+    <title>Dapper — Style, your way</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <a class="wordmark" href="#" aria-label="Dapper home">dapper<span>.</span></a>
+        <nav class="main-nav" aria-label="Main navigation">
+            <a class="nav-link active" href="#discover">Find a stylist</a>
+            <a class="nav-link" href="#how-it-works">How it works</a>
+            <a class="nav-link" href="#join">For stylists</a>
+        </nav>
+        <div class="header-actions">
+            <button class="text-button" id="my-bookings" type="button">My bookings</button>
+            <button class="avatar-button" id="account-button" type="button" aria-label="Your account">M</button>
+            <button class="mobile-menu" id="mobile-menu" type="button" aria-label="Open menu"><span></span><span></span></button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-copy">
+                <div class="eyebrow"><span class="eyebrow-star">✳</span> YOUR STYLE, YOUR CALL</div>
+                <h1 id="hero-title">Good style<br>looks like <em>you.</em></h1>
+                <p class="hero-description">Meet the independent stylists who get you. For the big changes, the small details, and everything in between.</p>
+                <form class="search-panel" id="search-form">
+                    <label class="search-field" for="search-query">
+                        <span class="field-icon">⌕</span>
+                        <span class="search-field-content"><span class="field-label">I’m looking for</span><input id="search-query" type="search" placeholder="A haircut, a wardrobe refresh..." autocomplete="off"></span>
+                    </label>
+                    <span class="search-divider" aria-hidden="true"></span>
+                    <label class="search-field location-field" for="search-location">
+                        <span class="field-icon">⌖</span>
+                        <span class="search-field-content"><span class="field-label">Near</span><input id="search-location" type="text" placeholder="Anywhere"></span>
+                    </label>
+                    <button class="search-submit" type="submit" aria-label="Search stylists"><span>Search</span><span aria-hidden="true">↗</span></button>
+                </form>
+                <div class="hero-note"><span class="tiny-spark">✳</span> Good people. Great style. No gatekeeping.</div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-wrap">
+                    <img class="hero-image" src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&amp;fit=crop&amp;w=1100&amp;q=90" alt="A stylish woman in a sunny studio">
+                    <div class="image-sticker"><span class="sticker-star">✳</span><span>Find your<br>kind of style</span></div>
+                    <div class="floating-note"><span class="online-dot"></span><span><strong>Good taste is personal.</strong><br>Finding your person shouldn’t be hard.</span></div>
+                </div>
+                <div class="image-caption"><span>01 / 04</span><span>Style that feels like you <b>↗</b></span></div>
+            </div>
+        </section>
+
+        <section class="browse-section" id="discover">
+            <div class="section-topline"><span>THE GOOD FIT FINDS</span><span class="section-rule"></span><span>GOOD PEOPLE, GREAT STYLE</span></div>
+            <div class="browse-heading">
+                <div><p class="section-kicker">A little help goes a long way</p><h2>Meet your <em>people.</em></h2></div>
+                <p class="heading-aside">The right person makes all the difference.<br>Here are a few good places to start.</p>
+            </div>
+            <div class="discovery-toolbar">
+                <div class="category-list" role="group" aria-label="Filter by specialty">
+                    <button class="category-chip selected" type="button" data-category="All"><span>✳</span> All people</button>
+                    <button class="category-chip" type="button" data-category="Hair"><span>◌</span> Hair</button>
+                    <button class="category-chip" type="button" data-category="Clothing"><span>◇</span> Clothing</button>
+                    <button class="category-chip" type="button" data-category="Jewelry"><span>✦</span> Jewelry</button>
+                    <button class="category-chip" type="button" data-category="Watches"><span>◷</span> Watches</button>
+                </div>
+                <div class="filter-actions">
+                    <label class="select-filter" for="mode-filter"><span>◉</span><select id="mode-filter" aria-label="Meeting type"><option value="Any">Any format</option><option value="In person">In person</option><option value="Video">Video</option></select><span class="select-chevron">⌄</span></label>
+                    <label class="select-filter price-filter" for="max-price-filter"><span>$</span><select id="max-price-filter" aria-label="Maximum price"><option value="">Any price</option><option value="60">Up to $60</option><option value="80">Up to $80</option><option value="100">Up to $100</option></select><span class="select-chevron">⌄</span></label>
+                    <label class="select-filter price-filter" for="rating-filter"><span>★</span><select id="rating-filter" aria-label="Minimum rating"><option value="">Any rating</option><option value="4.8">4.8+ stars</option><option value="4.9">4.9+ stars</option></select><span class="select-chevron">⌄</span></label>
+                    <label class="select-filter price-filter" for="price-filter"><span>↕</span><select id="price-filter" aria-label="Sort results"><option value="recommended">Recommended</option><option value="price">Price: low to high</option><option value="rating">Top rated</option></select><span class="select-chevron">⌄</span></label>
+                </div>
+            </div>
+            <div class="results-meta"><span id="results-count">Finding your people…</span><button type="button" id="clear-filters">Clear filters <span>↗</span></button></div>
+            <div class="stylist-grid" id="stylist-grid" aria-live="polite"></div>
+            <div class="empty-state" id="empty-state" hidden><span>✳</span><h3>No one by that name just yet.</h3><p>Try another search or clear your filters to meet everyone.</p><button class="button button-dark" id="empty-reset" type="button">Show me everyone <span>↗</span></button></div>
+            <button class="load-more" id="load-more" type="button">Meet more good people <span>↗</span></button>
+        </section>
+
+        <section class="how-section" id="how-it-works">
+            <div class="how-image"><img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&amp;fit=crop&amp;w=1000&amp;q=85" alt="A stylist at work with a client"><span class="how-image-label">A LITTLE STYLE GOES A LONG WAY <b>✳</b></span></div>
+            <div class="how-copy"><p class="section-kicker">Better style, less scrolling</p><h2>Good style.<br><em>Good people.</em><br>Really that simple.</h2><p>Great style isn’t one-size-fits-all. Find the person who understands your taste, your life, and your budget — then make a little time for you.</p><a class="underlined-link" href="#discover">Meet your stylist <span>↗</span></a><div class="how-counter"><strong>01</strong><span>OUT OF 03 — THAT’S THE WHOLE PLAN.</span></div></div>
+        </section>
+
+        <section class="join-section" id="join">
+            <div class="join-mark">✳</div>
+            <p class="section-kicker">A good fit goes both ways</p>
+            <h2>Good at what you do?<br><em>There’s room for you.</em></h2>
+            <p>Make a profile, show off your work, and meet the people who need your kind of good taste.</p>
+            <a class="button button-dark" href="mailto:hello@dapper.style?subject=Join%20Dapper">Come on in <span>↗</span></a>
+        </section>
+    </main>
+
+    <footer class="site-footer"><a class="wordmark" href="#">dapper<span>.</span></a><span>Good style. Good people. © 2025 Dapper.</span><a href="mailto:hello@dapper.style">Say hello ↗</a></footer>
+
+    <dialog class="modal" id="booking-modal" aria-labelledby="booking-title">
+        <div class="modal-content">
+            <button class="modal-close" type="button" aria-label="Close dialog">×</button>
+            <div class="modal-eyebrow"><span>✳</span> YOUR NEXT GOOD THING</div>
+            <h2 id="booking-title">Make it <em>official.</em></h2>
+            <p class="modal-intro" id="booking-stylist"></p>
+            <form id="booking-form">
+                <input type="hidden" name="stylistId">
+                <label class="form-label">Pick your service<select name="serviceName" required></select></label>
+                <div class="form-row">
+                    <label class="form-label">A good day<input name="date" type="date" required></label>
+                    <label class="form-label">A good time<select name="time" required><option value="">Choose a time</option><option value="09:00">9:00 AM</option><option value="10:00">10:00 AM</option><option value="11:00">11:00 AM</option><option value="12:00">12:00 PM</option><option value="13:00">1:00 PM</option><option value="14:00">2:00 PM</option><option value="15:00">3:00 PM</option><option value="16:00">4:00 PM</option><option value="17:00">5:00 PM</option><option value="18:00">6:00 PM</option></select></label>
+                </div>
+                <fieldset class="mode-options"><legend>Let’s meet</legend><label><input type="radio" name="mode" value="In person" checked><span>In person</span></label><label><input type="radio" name="mode" value="Video"><span>Video call</span></label></fieldset>
+                <label class="form-label location-input">Where should you meet?<input name="location" type="text" placeholder="Neighborhood or address"></label>
+                <div class="form-row">
+                    <label class="form-label">Your name<input name="clientName" type="text" autocomplete="name" required minlength="2" maxlength="100" placeholder="Name"></label>
+                    <label class="form-label">Your email<input name="clientEmail" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com"></label>
+                </div>
+                <p class="form-error" id="booking-error" role="alert"></p>
+                <button class="button button-dark modal-submit" type="submit">Request this time <span>↗</span></button>
+                <p class="booking-note">You won’t be charged just yet. Your stylist will confirm the details.</p>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog class="modal success-modal" id="success-modal">
+        <div class="modal-content success-content"><button class="modal-close" type="button" aria-label="Close dialog">×</button><span class="success-star">✳</span><p class="modal-eyebrow">IT’S A DATE</p><h2>You’re on your way<br>to a good <em>thing.</em></h2><p id="booking-confirmation"></p><button class="button button-dark" id="success-done" type="button">Lovely, thanks <span>↗</span></button></div>
+    </dialog>
+    <dialog class="modal bookings-modal" id="bookings-modal" aria-labelledby="bookings-title">
+        <div class="modal-content"><button class="modal-close" id="bookings-close" type="button" aria-label="Close dialog">×</button><p class="modal-eyebrow"><span>✳</span> YOUR GOOD THINGS</p><h2 id="bookings-title">The dates you’ve <em>made.</em></h2><p class="modal-intro">Your bookings on this device. A little time, just for you.</p><div class="bookings-list" id="bookings-list"></div><form class="review-form" id="review-form" hidden><input type="hidden" name="bookingId"><label class="form-label">Your rating<select name="rating" required><option value="">Choose a rating</option><option value="5">★★★★★ — Loved it</option><option value="4">★★★★ — Really good</option><option value="3">★★★ — Good</option><option value="2">★★ — Could be better</option><option value="1">★ — Not for me</option></select></label><label class="form-label">Share a few words<textarea name="comment" rows="3" minlength="5" maxlength="1000" required placeholder="What made it a good fit?"></textarea></label><p class="form-error" id="review-error" role="alert"></p><button class="button button-dark" type="submit">Share your review <span>↗</span></button></form></div>
+    </dialog>
+</body>
+</html>
