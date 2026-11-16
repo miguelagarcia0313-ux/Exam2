@@ -1,6 +1,6 @@
 # Dapper
 
-Dapper is a stylist marketplace demo. Browse independent stylists, filter by specialty and price, request an appointment, and leave a review after your appointment.
+Dapper is a stylist marketplace demo. Browse independent stylists, filter by specialty and price, request an appointment, leave a review after your appointment, edit a demo stylist profile, and apply to become a stylist.
 
 ## Requirements
 
@@ -106,6 +106,26 @@ Content-Type: application/json
 
 Send a `bookingId`, an integer `rating` from 1 to 5, and a `comment` between 5 and 1,000 characters. Reviews can only be submitted after the appointment.
 
+### Update a demo stylist profile
+
+```http
+PATCH /api/stylists/:id/profile
+Content-Type: application/json
+```
+
+The profile editor validates and updates a seeded stylist in memory. It is a classroom demo without authentication; changes are shared by visitors and reset when the server restarts.
+
+### Apply to become a stylist
+
+```http
+POST /api/stylist-applications
+Content-Type: application/json
+```
+
+Applications are validated, stored in memory with a `pending` status, and cleared when the server restarts. Submitting an application does not create a public stylist profile.
+
+The pages are `/`, `/stylist/profile`, and `/become-a-stylist`.
+
 ## Project structure
 
 ```text
@@ -114,11 +134,12 @@ public/                Browser JavaScript and styles
 src/controllers/       API request handlers
 src/data/               Seed stylist data
 src/routes/             API routes
-src/services/           Booking and review logic
+src/services/           Booking, review, profile, and application logic
 tests/                  Automated tests
-views/                  EJS page templates
+views/                  EJS page templates and shared partials
+views/partials/         Shared header and footer
 ```
 
 ## Data storage
 
-Stylist listings are seeded in `src/data/stylists.js`. Bookings and reviews are stored in memory and are cleared when the server restarts. Booking history shown in the browser is stored in that browser's local storage.
+Stylist listings are seeded in `src/data/stylists.js`. Bookings, reviews, profile changes, and stylist applications are stored in memory and are cleared when the server restarts. Booking history shown in the browser is stored in that browser's local storage.

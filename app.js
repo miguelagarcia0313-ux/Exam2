@@ -20,7 +20,13 @@ app.use(express.json({ limit: '20kb' }));
 app.use(express.urlencoded({ extended: false, limit: '20kb' }));
 app.use('/api', apiRoutes);
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', { currentPage: 'home' });
+});
+app.get('/stylist/profile', (req, res) => {
+    res.render('stylist-profile', { currentPage: 'profile' });
+});
+app.get('/become-a-stylist', (req, res) => {
+    res.render('become-a-stylist', { currentPage: 'become' });
 });
 app.use(express.static(path.join(currentDirectory, 'public')));
 

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f7f4">
+    <meta name="description" content="Manage a Dapper stylist profile.">
+    <title>Stylist profile — Dapper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/profile.js" defer></script>
+</head>
+<body>
+    <%- include('partials/header', { currentPage: 'profile' }) %>
+    <main class="content-page">
+        <section class="page-intro">
+            <p class="section-kicker">YOUR DAPPER SPACE</p>
+            <h1>Make your profile <em>yours.</em></h1>
+            <p>Keep your details current so the right people can find you and book with confidence.</p>
+        </section>
+        <section class="editor-card" aria-labelledby="profile-editor-title">
+            <div class="demo-notice"><strong>Demo profile editor</strong><span>Choose a sample stylist to edit. Changes are shared in this running demo and reset when the server restarts. This page does not have account sign-in.</span></div>
+            <label class="form-label" for="stylist-picker">Select a stylist profile
+                <select id="stylist-picker" required><option value="">Loading profiles…</option></select>
+            </label>
+            <form id="profile-form">
+                <div class="form-row">
+                    <label class="form-label">Display name<input name="name" type="text" minlength="2" maxlength="100" required></label>
+                    <label class="form-label">Professional title<input name="title" type="text" minlength="2" maxlength="120" required></label>
+                </div>
+                <div class="form-row">
+                    <label class="form-label">Specialty
+                        <select name="category" required>
+                            <option value="Hair">Hair</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Jewelry">Jewelry</option>
+                            <option value="Watches">Watches</option>
+                        </select>
+                    </label>
+                    <label class="form-label">Starting rate (USD)<input name="price" type="number" min="1" max="2000" step="1" required></label>
+                </div>
+                <label class="form-label">Service area<input name="location" type="text" minlength="2" maxlength="120" required></label>
+                <label class="form-label">Specialties <small>Separate each specialty with a comma.</small><input name="specialties" type="text" maxlength="400" required></label>
+                <fieldset class="mode-options profile-modes">
+                    <legend>Meeting formats</legend>
+                    <label><input name="modes" type="checkbox" value="In person"><span>In person</span></label>
+                    <label><input name="modes" type="checkbox" value="Video"><span>Video</span></label>
+                </fieldset>
+                <label class="form-label">About your work<textarea name="bio" rows="5" minlength="10" maxlength="1000" required></textarea></label>
+                <p class="form-error" id="profile-error" role="alert"></p>
+                <p class="form-success" id="profile-success" role="status" aria-live="polite"></p>
+                <button class="button button-dark" id="profile-save" type="submit">Save profile <span>↗</span></button>
+            </form>
+        </section>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+</html>

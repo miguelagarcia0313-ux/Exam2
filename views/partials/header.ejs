@@ -1,0 +1,17 @@
+<header class="site-header">
+    <a class="wordmark" href="/" aria-label="Dapper home">dapper<span>.</span></a>
+    <nav class="main-nav" aria-label="Main navigation">
+        <a class="nav-link <%= currentPage === 'home' ? 'active' : '' %>" href="/#discover">Find a stylist</a>
+        <a class="nav-link" href="/#how-it-works">How it works</a>
+        <a class="nav-link <%= currentPage === 'become' ? 'active' : '' %>" href="/become-a-stylist">For stylists</a>
+    </nav>
+    <div class="header-actions">
+        <% if (currentPage === 'home') { %>
+            <button class="text-button" id="my-bookings" type="button">My bookings</button>
+            <a class="avatar-button" href="/stylist/profile" aria-label="Open stylist profile" title="Open stylist profile">M</a>
+        <% } else { %>
+            <a class="text-button text-button-link" href="/stylist/profile">Edit profile</a>
+        <% } %>
+        <button class="mobile-menu" id="mobile-menu" type="button" aria-label="Open menu"><span></span><span></span></button>
+    </div>
+</header>
