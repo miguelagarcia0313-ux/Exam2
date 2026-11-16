@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import stylists from '../src/data/stylists.js';
 import { createBooking } from '../src/services/bookingService.js';
 import { createReview } from '../src/services/reviewService.js';
+import { updateStylistProfile } from '../src/services/stylistProfileService.js';
+import { createStylistApplication } from '../src/services/stylistApplicationService.js';
 
 function nextAvailableDate(availableDays) {
     const date = new Date();
@@ -59,4 +61,46 @@ test('rejects invalid services and review submissions before an appointment', ()
         () => createReview({ bookingId: booking.id, rating: 5, comment: 'Really enjoyed it.' }),
         { status: 409 }
     );
+});
+
+test('updates a stylist profile and rejects invalid profile data', () => {
+    const stylist = stylists.find((item) => item.id === 'morgan-lee');
+    const original = {
+        name: stylist.name,
+        title: stylist.title,
+        category: stylist.category,
+        price: stylist.price,
+        location: stylist.location,
+        specialties: [...stylist.specialties],
+        modes: [...stylist.modes],
+        bio: stylist.bio
+    };
+    const updated = updateStylistProfile(stylist.id, {
+        ...original,
+        title: 'The demo profile editor',
+        price: 99,
+        specialties: ['Haircuts', 'Styling'],
+        modes: ['Video']
+    });
+
+    assert.equal(updated.title, 'The demo profile editor');
+    assert.equal(updated.price, 99);
+    assert.deepEqual(updated.specialties, ['Haircuts', 'Styling']);
+    assert.deepEqual(updated.modes, ['Video']);
+    assert.throws(() => updateStylistProfile(stylist.id, { ...original, modes: [] }), { status: 400 });
+    updateStylistProfile(stylist.id, original);
+});
+
+test('saves a pending stylist application and validates required details', () => {
+    const application = createStylistApplication({
+        name: 'Jordan Stylist',
+        email: 'jordan@example.com',
+        category: 'Clothing',
+        location: 'Brooklyn, NY',
+        experience: 'Personal shopping and wardrobe edits.'
+    });
+
+    assert.equal(application.name, 'Jordan Stylist');
+    assert.equal(application.status, 'pending');
+    assert.throws(() => createStylistApplication({ name: 'J', email: 'not-an-email' }), { status: 400 });
 });

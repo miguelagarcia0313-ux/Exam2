@@ -367,7 +367,6 @@ document.querySelector('#review-form').addEventListener('submit', async (event) 
     }
 });
 document.querySelector('#bookings-close').addEventListener('click', () => document.querySelector('#bookings-modal').close());
-document.querySelector('#account-button').addEventListener('click', () => showToast('Account setup is on its way. You can book with us without an account.'));
 
 loadStylists().catch((error) => {
     resultsCount.textContent = 'We couldn’t find your people.';

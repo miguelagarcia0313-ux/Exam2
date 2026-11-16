@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f8f7f4">
+    <meta name="description" content="Learn how to join Dapper as an independent stylist.">
+    <title>Become a stylist — Dapper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/onboarding.js" defer></script>
+</head>
+<body>
+    <%- include('partials/header', { currentPage: 'become' }) %>
+    <main class="content-page">
+        <section class="page-intro">
+            <p class="section-kicker">GOOD AT WHAT YOU DO?</p>
+            <h1>Your work. Your people. <em>Your way.</em></h1>
+            <p>Dapper helps independent style professionals meet clients who are looking for exactly what they do best.</p>
+        </section>
+        <section class="onboarding-layout">
+            <div class="onboarding-copy">
+                <h2>Getting started is <em>simple.</em></h2>
+                <ol class="onboarding-steps">
+                    <li><span>01</span><div><strong>Tell us about yourself</strong><p>Share your specialty, experience, and where you work.</p></div></li>
+                    <li><span>02</span><div><strong>Build your profile</strong><p>Show clients your services, style, meeting formats, and starting rate.</p></div></li>
+                    <li><span>03</span><div><strong>Meet your next client</strong><p>Clients can discover your profile, request a session, and leave a review afterward.</p></div></li>
+                </ol>
+                <div class="demo-notice"><strong>About verification</strong><span>Hair service profiles must be state-licensed before offering haircut appointments. Other style specialties can apply with a portfolio.</span></div>
+            </div>
+            <section class="editor-card application-card" aria-labelledby="application-title">
+                <p class="section-kicker">START HERE</p>
+                <h2 id="application-title">Let’s get to <em>know you.</em></h2>
+                <p class="application-intro">Send a short interest application. In this demo, it is saved as pending for review; it does not create a public profile yet.</p>
+                <form id="application-form">
+                    <label class="form-label">Your name<input name="name" type="text" autocomplete="name" minlength="2" maxlength="100" required></label>
+                    <label class="form-label">Email address<input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+                    <label class="form-label">Your specialty
+                        <select name="category" required>
+                            <option value="">Choose a specialty</option>
+                            <option value="Hair">Hair</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Jewelry">Jewelry</option>
+                            <option value="Watches">Watches</option>
+                        </select>
+                    </label>
+                    <label class="form-label">City or service area<input name="location" type="text" minlength="2" maxlength="120" required></label>
+                    <label class="form-label">A little about your experience<textarea name="experience" rows="4" maxlength="800" placeholder="What do you do, and what should clients know about your work?"></textarea></label>
+                    <p class="form-error" id="application-error" role="alert"></p>
+                    <p class="form-success" id="application-success" role="status" aria-live="polite"></p>
+                    <button class="button button-dark" id="application-submit" type="submit">Send application <span>↗</span></button>
+                </form>
+            </section>
+        </section>
+        <p class="page-back-link"><a class="underlined-link" href="/#discover">Explore Dapper stylists <span>↗</span></a></p>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+</html>

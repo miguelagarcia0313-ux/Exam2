@@ -13,19 +13,7 @@
     <script src="/app.js" defer></script>
 </head>
 <body>
-    <header class="site-header">
-        <a class="wordmark" href="#" aria-label="Dapper home">dapper<span>.</span></a>
-        <nav class="main-nav" aria-label="Main navigation">
-            <a class="nav-link active" href="#discover">Find a stylist</a>
-            <a class="nav-link" href="#how-it-works">How it works</a>
-            <a class="nav-link" href="#join">For stylists</a>
-        </nav>
-        <div class="header-actions">
-            <button class="text-button" id="my-bookings" type="button">My bookings</button>
-            <button class="avatar-button" id="account-button" type="button" aria-label="Your account">M</button>
-            <button class="mobile-menu" id="mobile-menu" type="button" aria-label="Open menu"><span></span><span></span></button>
-        </div>
-    </header>
+    <%- include('partials/header', { currentPage: 'home' }) %>
 
     <main>
         <section class="hero" aria-labelledby="hero-title">
@@ -94,11 +82,11 @@
             <p class="section-kicker">A good fit goes both ways</p>
             <h2>Good at what you do?<br><em>There’s room for you.</em></h2>
             <p>Make a profile, show off your work, and meet the people who need your kind of good taste.</p>
-            <a class="button button-dark" href="mailto:hello@dapper.style?subject=Join%20Dapper">Come on in <span>↗</span></a>
+            <a class="button button-dark" href="/become-a-stylist">Come on in <span>↗</span></a>
         </section>
     </main>
 
-    <footer class="site-footer"><a class="wordmark" href="#">dapper<span>.</span></a><span>Good style. Good people. © 2025 Dapper.</span><a href="mailto:hello@dapper.style">Say hello ↗</a></footer>
+    <%- include('partials/footer') %>
 
     <dialog class="modal" id="booking-modal" aria-labelledby="booking-title">
         <div class="modal-content">
