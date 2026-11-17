@@ -29,6 +29,10 @@ npm start
 
 Open [http://localhost:4000](http://localhost:4000). Set the `PORT` environment variable to use a different port.
 
+Stylist profile editing is protected by a shared passphrase. `.env`, then replace the placeholder with a unique passphrase of at least 16 characters for safety:
+
+The app loads `.env` on startup. `.env` is excluded from Git; do not remove that ignore rule or commit the passphrase. Restart the server after changing it.
+
 ## Tests
 
 Run the test suite with Node's built-in test runner:
@@ -113,7 +117,7 @@ PATCH /api/stylists/:id/profile
 Content-Type: application/json
 ```
 
-The profile editor validates and updates a seeded stylist in memory. It is a classroom demo without authentication; changes are shared by visitors and reset when the server restarts.
+The profile editor validates and updates a seeded stylist in memory. It requires the HttpOnly stylist session cookie created by signing in at `/stylist/login`; changes are shared by visitors and reset when the server restarts.
 
 ### Apply to become a stylist
 
@@ -124,22 +128,29 @@ Content-Type: application/json
 
 Applications are validated, stored in memory with a `pending` status, and cleared when the server restarts. Submitting an application does not create a public stylist profile.
 
-The pages are `/`, `/stylist/profile`, and `/become-a-stylist`.
+The pages are `/`, `/stylist/login`, `/stylist/profile`, and `/become-a-stylist`. Stylist sessions expire after 30 minutes and are cleared when the server restarts. Sign-in is limited to five failed attempts per IP per 15-minute window.
 
 ## Project structure
 
 ```text
-app.js                 Express app and server
-public/                Browser JavaScript and styles
-src/controllers/       API request handlers
-src/data/               Seed stylist data
-src/routes/             API routes
-src/services/           Booking, review, profile, and application logic
+server.js               Express app and server
+public/
+  css/                  Stylesheets
+  images/               Local image assets
+  js/                   Browser JavaScript
+controllers/            HTTP request handlers
+data/                   Seed stylist data
+middleware/             Security, authentication, and error handling
+routes/                 Page and API routes
+services/               Booking, review, profile, and application logic
 tests/                  Automated tests
-views/                  EJS page templates and shared partials
-views/partials/         Shared header and footer
+views/
+  partials/             Shared header and footer
 ```
 
 ## Data storage
 
-Stylist listings are seeded in `src/data/stylists.js`. Bookings, reviews, profile changes, and stylist applications are stored in memory and are cleared when the server restarts. Booking history shown in the browser is stored in that browser's local storage.
+Stylist listings are seeded in `data/stylists.js`. Bookings, reviews, profile changes, applications, and stylist sessions are stored in memory and are cleared when the server restarts. Booking history shown in the browser is stored in that browser's local storage.
+
+### LLM Usage
+GPT was used to edit HTML/CSS and to search for sources where i could understand middleware

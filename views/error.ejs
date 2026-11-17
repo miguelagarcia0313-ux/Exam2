@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Error <%= status %> — Dapper</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('partials/header', { currentPage: 'error' }) %>
+    <main class="content-page login-page">
+        <section class="page-intro">
+            <p class="section-kicker">WE COULDN’T COMPLETE THAT</p>
+            <h1>Error <em><%= status %></em></h1>
+            <p role="alert"><%= message %></p>
+            <a class="button button-dark" href="/">Back to Dapper <span>↗</span></a>
+        </section>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+</html>

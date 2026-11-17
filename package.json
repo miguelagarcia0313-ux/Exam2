@@ -1,15 +1,16 @@
 {
   "dependencies": {
+    "dotenv": "^16.4.7",
     "ejs": "^7.0.2",
     "express": "^5.3.0"
   },
   "name": "dapper-app",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon --ext js,ejs,css,json app.js",
+    "start": "node server.js",
+    "dev": "nodemon --ext js,ejs,css,json server.js",
     "test": "node --test"
   },
   "keywords": [],
