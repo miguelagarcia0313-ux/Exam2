@@ -1,10 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import stylists from '../src/data/stylists.js';
-import { createBooking } from '../src/services/bookingService.js';
-import { createReview } from '../src/services/reviewService.js';
-import { updateStylistProfile } from '../src/services/stylistProfileService.js';
-import { createStylistApplication } from '../src/services/stylistApplicationService.js';
+import stylists from '../data/stylists.js';
+import { createBooking } from '../services/bookingService.js';
+import { createReview } from '../services/reviewService.js';
+import { updateStylistProfile } from '../services/stylistProfileService.js';
+import { createStylistApplication } from '../services/stylistApplicationService.js';
+import {
+    createSessionCookie,
+    createStylistSession,
+    destroyStylistSession,
+    findStylistSession
+} from '../services/authService.js';
 
 function nextAvailableDate(availableDays) {
     const date = new Date();
@@ -103,4 +109,23 @@ test('saves a pending stylist application and validates required details', () =>
     assert.equal(application.name, 'Jordan Stylist');
     assert.equal(application.status, 'pending');
     assert.throws(() => createStylistApplication({ name: 'J', email: 'not-an-email' }), { status: 400 });
+});
+
+test('requires a configured passphrase and issues revocable HttpOnly sessions', () => {
+    const previousPassword = process.env.STYLIST_EDITOR_PASSWORD;
+    try {
+        delete process.env.STYLIST_EDITOR_PASSWORD;
+        assert.throws(() => createStylistSession('anything'), { status: 503 });
+
+        process.env.STYLIST_EDITOR_PASSWORD = 'classroom-test-passphrase-2026';
+        assert.throws(() => createStylistSession('incorrect'), { status: 401 });
+        const token = createStylistSession('classroom-test-passphrase-2026');
+        assert.equal(findStylistSession(token), token);
+        assert.match(createSessionCookie(token), /HttpOnly; SameSite=Strict/);
+        destroyStylistSession(token);
+        assert.equal(findStylistSession(token), null);
+    } finally {
+        if (previousPassword === undefined) delete process.env.STYLIST_EDITOR_PASSWORD;
+        else process.env.STYLIST_EDITOR_PASSWORD = previousPassword;
+    }
 });

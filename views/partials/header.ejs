@@ -8,9 +8,14 @@
     <div class="header-actions">
         <% if (currentPage === 'home') { %>
             <button class="text-button" id="my-bookings" type="button">My bookings</button>
-            <a class="avatar-button" href="/stylist/profile" aria-label="Open stylist profile" title="Open stylist profile">M</a>
+            <a class="avatar-button" href="<%= isStylistAuthenticated ? '/stylist/profile' : '/stylist/login' %>" aria-label="<%= isStylistAuthenticated ? 'Open stylist profile' : 'Sign in to manage stylist profile' %>" title="<%= isStylistAuthenticated ? 'Open stylist profile' : 'Stylist sign in' %>">M</a>
+        <% } else if (isStylistAuthenticated) { %>
+            <a class="text-button text-button-link" href="/stylist/profile">My profile</a>
+            <form class="logout-form" action="/auth/logout" method="post">
+                <button class="text-button" type="submit">Sign out</button>
+            </form>
         <% } else { %>
-            <a class="text-button text-button-link" href="/stylist/profile">Edit profile</a>
+            <a class="text-button text-button-link" href="/stylist/login">Stylist sign in</a>
         <% } %>
         <button class="mobile-menu" id="mobile-menu" type="button" aria-label="Open menu"><span></span><span></span></button>
     </div>
